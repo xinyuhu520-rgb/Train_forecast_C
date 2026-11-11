@@ -1,93 +1,24 @@
-# C_Train_Forecast
+# 携程国内火车票（Ctrip.Train）2027 全年业务大盘预测项目 (V4.0)
 
+> **严格业务口径**：`partner_name = 'Ctrip.Train'`（C端纯盘，剔除智行、去哪儿、商旅、海外Trip、铁友）  
+> **产线范围**：`solution_business_type_cn IN ('纯买', '买得到', '纯抢')`  
+> **训练数据底座**：基于 2025 全年 + 2026 实际业务数据（彻底剔除 2024 年）+ 中台稳定日历维表 `dim_traindb.dim_trn_date_label_df`（2027 国务院正式节假日排期已生效）  
+> **生产落地表**：
+> - 纯预测基准表：`mplat_bi_traindb.adm_trn_forecast_2027_daily_df`（Zeus 任务 `1618901`，PySpark 每日 09:00 自动执行）
+> - 实绩与预测一体化表：`mplat_bi_traindb.adm_trn_ord_forecast_2027_combined_di`（Zeus 任务 `1619716`，Hive SQL 每日自动合成）
+> - 线上监控看板：[ArtNova 2027 实绩与预测对比看板](https://artnova.ops.ctripcorp.com/#/dashboard/609ff758-bfa2-4386-8398-1f611b8daf1a)
 
+---
 
-## Getting started
+## 项目核心文档与代码索引
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin http://git.dev.sh.ctripcorp.com/train-bi/c_train_forecast.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](http://git.dev.sh.ctripcorp.com/train-bi/c_train_forecast/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+| 类别 | 文件路径 | 说明 |
+|---|---|---|
+| **总白皮书** | [`火车票2027业务预测-完整调研报告.md`](./火车票2027业务预测-完整调研报告.md) | 涵盖前期调研、方法论选型、V1.0→V4.0 四期算法迭代、2027 正式节假日单日假脉冲衰减机制及生产架构 |
+| **专项报告** | [`火车票2027出票量业务预测报告.md`](./火车票2027出票量业务预测报告.md) | 出票量大盘预测、月度拆解与 V4.0 双轨解耦（近7日准确率 98.36%）分析 |
+| **专项报告** | [`火车票2027净票量业务预测报告.md`](./火车票2027净票量业务预测报告.md) | 净票量大盘预测、三维动态 `TIERS` 结构演进（近7日准确率 98.46%）分析 |
+| **专项报告** | [`火车票2027营业收益业务预测报告.md`](./火车票2027营业收益业务预测报告.md) | 营业收益预测、连续动态单票收益 GBDT 与监管平滑包络约束分析 |
+| **交互看板** | [`2027火车票业务预测_按天曲线看板.html`](./2027火车票业务预测_按天曲线看板.html) | 本地自包含 ECharts 按天多档位交互看板 |
+| **生产主代码**| [`代码/zeus_forecast_2027.py`](./代码/zeus_forecast_2027.py) | Zeus 任务 `1618901` 生产主程序 (PySpark) |
+| **数据合成SQL**| [`代码/zeus_combine_forecast_actual.sql`](./代码/zeus_combine_forecast_actual.sql) | Zeus 任务 `1619716` 实绩与预测一体化合成脚本 (Hive SQL) |
+| **工程指南** | [`代码/README.md`](./代码/README.md) | 代码目录、调度流水线与核心参数调优手册 |
